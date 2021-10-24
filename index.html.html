@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>fransjoakim.net</title>
+    <style>
+
+      body {
+
+        font-family: sans-serif;
+
+      }
+
+      #first {
+        position: relative;
+      }
+
+      #shape {
+
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        display: none;
+        position: absolute;
+      }
+
+      #wow {
+          display: none;
+          margin-top: 200px;
+          justify-content: center;
+          flex-direction: column;
+
+      }
+
+      #wow img {
+        margin: auto;
+      }
+
+      #wow h1 {
+        margin: auto;
+      }
+
+      #pictureOfMe {
+        width: 50px;
+        height: 50px;
+      }
+
+      img {
+        border: 5px solid #555;
+      }
+
+      .bold {
+
+        font-weight: bold;
+
+      }
+
+      .italic {
+
+        font-weight: italic;
+
+      }
+
+
+    </style>
+  </head>
+
+  <body>
+
+    <div id="wow">
+        <img src="./Bilde2.JPG">
+        <h1 id="spellWow"></h1>
+    </div>
+
+
+    <div id="first">
+
+        <div id="faster">
+            <h1 id="clickMe">Click on me!</h1>
+            <p class="bold">Your time: <span id="dinTid"></span></p>
+            <p class="italic" id="bestTime"></p>
+        </div>
+
+        <div id="shape">
+                <img id="pictureOfMe" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.teknovatoren.no%2F2017%2F04%2Ffuture-see-future%2F&psig=AOvVaw3Qzg73Q7qKb6xT71-8W0Nb&ust=1635189517919000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJiixOvh4_MCFQAAAAAdAAAAABAD">
+        </div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+
+      var start = new Date().getTime();
+
+      function getRandomColor() {
+
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      function makeShapeAppear() {
+
+        var top = Math.random() * 250;
+
+        var left = Math.random() * 1000
+
+        var width = (Math.random() * 200) + 100;
+
+        var randomPictureCondition = Math.random()
+
+        if (randomPictureCondition < 0.2) {
+
+          document.getElementById("shape").style.borderRadius = "50%";
+          document.getElementById("pictureOfMe").style.display = "none";
+          document.getElementById("shape").style.backgroundColor = getRandomColor();
+
+        } else if (randomPictureCondition < 0.5) {
+
+          document.getElementById("pictureOfMe").style.borderRadius = "50%";
+          document.getElementById("pictureOfMe").style.display = "block";
+          document.getElementById("shape").style.backgroundColor = "white";
+          
+        } else if (randomPictureCondition < 0.7) {
+
+          document.getElementById("shape").style.borderRadius = "0%";
+          document.getElementById("pictureOfMe").style.display = "none";
+          document.getElementById("shape").style.backgroundColor = getRandomColor();
+
+        } else {
+          document.getElementById("pictureOfMe").style.borderRadius = "0%";
+          document.getElementById("pictureOfMe").style.display = "block";
+          document.getElementById("shape").style.backgroundColor = "white";
+        }
+
+        document.getElementById("shape").style.width = width + "px";
+        document.getElementById("pictureOfMe").style.width = width + "px";
+        document.getElementById("shape").style.height = width + "px";
+        document.getElementById("pictureOfMe").style.height = width + "px";
+        document.getElementById("shape").style.top = top + "px";
+        document.getElementById("shape").style.left = left + "px";
+        document.getElementById("shape").style.display = "block";
+
+        start = new Date().getTime();
+
+      }
+
+      function appearAfterDelay() {
+
+        setTimeout(makeShapeAppear, Math.random() * 2000)
+
+      }
+
+      appearAfterDelay();
+
+      var bestTime = 99999999999999999999999999999999
+
+      document.getElementById('shape').onclick = function() {
+
+        document.getElementById('shape').style.display = "none";
+
+        var end = new Date().getTime();
+
+        var time = (end - start) / 1000;
+
+        document.getElementById("dinTid").innerHTML = time + "s.";
+
+        if (time < bestTime) {
+          bestTime = time;
+          document.getElementById("bestTime").innerHTML = "Your best time yet, is " + bestTime + "s. "
+        } else {
+          let p = document.createElement("h2");
+          p.innerHTML = "Faster!"
+          document.getElementById("faster").appendChild(p);
+        }
+
+        if (bestTime < 0.55) {
+            document.getElementById("first").style.display = "none"
+            document.getElementById("wow").style.display = "flex"
+            const text = "WOOOOOOOOOOOOOOOOOOOOOOOOOOOOW!";
+            let timer;
+            let i = 0;
+            function type() {
+                document.getElementById("spellWow").innerText = document.getElementById("spellWow").innerText + text[i];
+                i++;
+                if(i >= text.length) 
+                    clearInterval(timer);
+            }
+            timer = setInterval(type, 90);
+            document.getElementById("wow").onclick = function() {
+              document.getElementById("first").style.display = "block";
+              document.getElementById("wow").style.display = "none";
+              document.getElementById("spellWow").innerText = "";
+              bestTime = 99999999999999
+              appearAfterDelay();
+            }
+        } else {
+        appearAfterDelay();
+        }
+
+
+
+      }
+
+
+    </script>
+
+  </body>
+</html>
